@@ -128,7 +128,7 @@ void Imagen(){
 
 void Espera(){
 
-    _sleep(1000);       // --> Crea un retrazo o pausa momentanea en el tiempo por una cantidad de milisegundos especifica
+    _sleep(10);       // --> Crea un retrazo o pausa momentanea en el tiempo por una cantidad de milisegundos especifica
     //system("cls");
 }
 
@@ -146,15 +146,30 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
         for(int j = 0; j < columnas ; j++)
         {
             Matriz[i][j] = 1;
+            // Imprimimos la matriz a medida que se van cambiando los leds
+            for (int k = 0; k < filas; k++)
+            {
+                for(int m = 0; m < columnas; m++)
+                {
+                    cout<< matriz[k][m] << " ";
+                    Espera();
+                }
+                cout<<endl;
+            }
         }
 
-    // Imprimimos la matriz a medida que se van cambiando los leds
-    for (int i = 0; i < filas; i++)
+    // Apagamos los leds
+    for(int i = 0; i < filas; i++)
+    {   for(int j = 0; j < columnas; j++)
+        { Matriz[i][j] = 0;}
+        cout<<endl;
+    }
+
+    // Imprimimos la matriz apagada
+    for (int k = 0; k < filas; k++)
     {
-        for(int j = 0; j < columnas; j++)
-        {
-            cout<< matriz[i][j] << " ";
-        }
+        for(int m = 0; m < columnas; m++)
+        {cout<< matriz[k][m] << " ";}
         cout<<endl;
     }
 
