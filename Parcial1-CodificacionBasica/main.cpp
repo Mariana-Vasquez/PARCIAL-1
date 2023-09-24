@@ -137,15 +137,15 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
     //matriz con leds apagados
     CreacionMatriz(filas, columnas);
 
+    int **Matriz = matriz;
+
    // Queremos cambiar uno a uno los 0s por 1s para simular los encendidos de los leds
    // Accederemos a estas posiciones de esta matriz por medio de un puntero
 
-    int *ptr = &matriz[0][0]; // -> apuntamos al primer elemento de la matriz
     for(int i = 0; i < filas ; i++) // -> necesitamos que el for pase por todas las posiciones de la matriz 8 x 8 = 64 posiciones
         for(int j = 0; j < columnas ; j++)
         {
-            *ptr = 1; // -> cambiamos el 0 por el 1 simulando el encendido del led
-            ptr++;    // -> cambiamos a la siguiente posicion de la matriz
+            Matriz[i][j] = 1;
         }
 
     // Imprimimos la matriz a medida que se van cambiando los leds
