@@ -2,6 +2,10 @@
 
 using namespace std;
 
+// Declaramos las dimensiones de la matriz 8x8 que simulara nuestra matriz de leds
+int filas = 8;
+int columnas = 8;
+
 //Declaracion de las funciones
 
 /*Creamos las funciones Creacion y Destruccion matriz para tener mayor control sobre la reserva del espacio de la memoria y su liberacion
@@ -9,27 +13,26 @@ esto nos permite poder inicializarla y destruirla para diferentes zonas del codi
 
 int** CreacionMatriz(int filas, int columnas); //--> crea una matriz 8x8 simulando los leds
 void DestruccionMatriz(int** matriz, int filas); //--> libera el espacio de la memoria dinamica reservada para la matriz
-void Imagen(); //--> le permite al usuario elegir el patron a mostrar
+void ImprimirMatriz(int **matriz, int filas, int columnas); //--> imprime las matrices que simulan las salidas de los leds
+void Imagen(int **matriz); //--> le permite al usuario elegir el patron a mostrar
 void PruebaDeEncendido(int **matriz, int filas, int columnas); //--> enciende los leds para mostrar que su funcionamiento sea correcto
 void Espera();
 
 int main()
 {
-    // Declaramos las dimensiones de la matriz 8x8 que simulara nuestra matriz de leds
-    int filas = 8;
-    int columnas = 8;
 
     // PRUEBA DE ENCENDIDO/APAGADO DE LEDS
 
     int **Matriz = CreacionMatriz(filas, columnas);
-
     PruebaDeEncendido(Matriz, filas, columnas);
 
-    DestruccionMatriz(Matriz, filas);
-
+    Espera();
 
     // IMAGENES
 
+    Imagen(Matriz);
+
+    DestruccionMatriz(Matriz, filas);
 
     return 0;
 }
@@ -56,17 +59,6 @@ int** CreacionMatriz(int filas, int columnas){
         {    matriz[i][j] = contador;}
     }
 
-/*
-    //Imprimir la matriz (ETAPA PRUEBA)
-    for(int i = 0; i < filas; i++)
-    {   for(int j = 0; j < columnas; j++)
-        {    cout<< matriz[i][j] << " ";}
-
-        cout<<endl;
-    }
-
-*/
-
     return matriz;
 }
 
@@ -77,7 +69,16 @@ void DestruccionMatriz(int** matriz, int filas){
     delete[] matriz;
 }
 
-void Imagen(){
+void ImprimirMatriz(int **matriz, int filas, int columnas){
+    for (int k = 0; k < filas; k++)
+    {
+        for(int m = 0; m < columnas; m++)
+        {cout<< matriz[k][m] << " ";}
+        cout<<endl;
+    }
+}
+
+void Imagen(int **Matriz){
 
     int opcion; //-> No la inicializo de una vez por que necesito que se tome un valor ingresado por el usuario antes de ingresar al while
 
@@ -87,49 +88,92 @@ void Imagen(){
     cout<<"3. Serpientes. "<<endl;
     cout<<"4. Flecha. "<<endl;
     cout<<"5. Todos. "<<endl;
+    cout<<"Opcion elegida: ";
 
     cin>>opcion;
-
     while(opcion != 0){
 
         switch (opcion) {
 
         case 0:
+        {
             cout<< "Gracias por ingresar a nuestro programa, vuelva pronto."<<endl;
             break;
+        }
 
         case 1:
-
+        {
             break;
+        }
 
         case 2:
+        {
+            //int **Matriz = CreacionMatriz(filas,columnas);
+
+            // Cambiamos los 0s de las diagonales por 1s
+            for(int i = 0 ; i < filas; i++)
+            {
+                Matriz[i][i] = 1; //-> el primer digito de la matriz que tambien es el primero de la diagonal
+                Matriz[i][columnas - i - 1] = 1; //-> El ultimo digito de la primera fila de la matriz y el primer digito de la diagonal secundaria
+
+                /*
+                 * A medida que va corriendo el for, el valor de i va ir aumentando y cambiando la posicion de la matriz
+                 * i = 0
+                 *
+                 * nos da la diagonal la posicion (0,0) en la diagonal principal
+                 * nos da la diagonal la posicion (0,7) en la diagonal secundaria
+                 *
+                 * i = 1
+                 *
+                 * nos da la diagonal la posicion (1,1) en la diagonal principal
+                 * nos da la diagonal la posicion (1,6) en la diagonal secundaria
+                 *
+                 * Asi ira cambiando para recorrer toda la matriz
+                 *
+                 * i = 7
+                 *
+                 * nos da la diagonal la posicion (7,7) en la diagonal principal
+                 * nos da la diagonal la posicion (7,0) en la diagonal secundaria
+                 *
+                */
+            }
+
+            ImprimirMatriz(Matriz, filas, columnas);
 
             break;
+        }
 
         case 3:
-
+        {
             break;
+        }
 
         case 4:
-
+        {
             break;
+        }
 
         case 5:
-
+        {
             break;
+        }
 
         default:
+        {
             cout<<"Se ingreso una opcion invalida, intentelo nuevamente." << endl;
             break;
+        }
 
         } // del switch
     } // del while
+
+
 } //de la funcion
 
 void Espera(){
 
-    _sleep(10);       // --> Crea un retrazo o pausa momentanea en el tiempo por una cantidad de milisegundos especifica
-    //system("cls");
+    _sleep(5000);       // --> Crea un retrazo o pausa momentanea en el tiempo por una cantidad de milisegundos especifica
+    system("cls");
 }
 
 void PruebaDeEncendido(int **matriz, int filas, int columnas){
@@ -152,7 +196,7 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
                 for(int m = 0; m < columnas; m++)
                 {
                     cout<< matriz[k][m] << " ";
-                    Espera();
+                    //Espera();
                 }
                 cout<<endl;
             }
@@ -165,13 +209,7 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
         cout<<endl;
     }
 
-    // Imprimimos la matriz apagada
-    for (int k = 0; k < filas; k++)
-    {
-        for(int m = 0; m < columnas; m++)
-        {cout<< matriz[k][m] << " ";}
-        cout<<endl;
-    }
+    ImprimirMatriz(Matriz, filas, columnas);
 
     DestruccionMatriz(matriz, filas);
 }
