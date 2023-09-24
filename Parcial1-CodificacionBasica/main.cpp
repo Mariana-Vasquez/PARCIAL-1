@@ -73,16 +73,17 @@ void ImprimirMatriz(int **matriz, int filas, int columnas){
     for (int k = 0; k < filas; k++)
     {
         for(int m = 0; m < columnas; m++)
-        {cout<< matriz[k][m] << " ";}
+            {cout<< matriz[k][m] << " ";}
         cout<<endl;
     }
 }
 
 void Imagen(int **Matriz){
 
-    int opcion; //-> No la inicializo de una vez por que necesito que se tome un valor ingresado por el usuario antes de ingresar al while
+    int opcion = 1; //-> No la inicializo de una vez por que necesito que se tome un valor ingresado por el usuario antes de ingresar al while
 
-    cout<<"Bienvenido señor usuario, por favor ingrese el numero del patron que quiere ver en la matriz: "<<endl;
+    while(opcion != 0){
+    cout<<"Bienvenido sr. usuario, por favor ingrese el numero del patron que quiere ver en la matriz: "<<endl;
     cout<<"1. Sin esquinas. "<<endl;
     cout<<"2. Diagonales. "<<endl;
     cout<<"3. Serpientes. "<<endl;
@@ -91,7 +92,8 @@ void Imagen(int **Matriz){
     cout<<"Opcion elegida: ";
 
     cin>>opcion;
-    while(opcion != 0){
+
+    Espera();
 
         switch (opcion) {
 
@@ -108,7 +110,6 @@ void Imagen(int **Matriz){
 
         case 2:
         {
-            //int **Matriz = CreacionMatriz(filas,columnas);
 
             // Cambiamos los 0s de las diagonales por 1s
             for(int i = 0 ; i < filas; i++)
@@ -139,6 +140,8 @@ void Imagen(int **Matriz){
             }
 
             ImprimirMatriz(Matriz, filas, columnas);
+            cout<<endl;
+            Espera();
 
             break;
         }
@@ -166,8 +169,6 @@ void Imagen(int **Matriz){
 
         } // del switch
     } // del while
-
-
 } //de la funcion
 
 void Espera(){
@@ -178,18 +179,13 @@ void Espera(){
 
 void PruebaDeEncendido(int **matriz, int filas, int columnas){
 
-    //matriz con leds apagados
-    CreacionMatriz(filas, columnas);
-
-    int **Matriz = matriz;
-
    // Queremos cambiar uno a uno los 0s por 1s para simular los encendidos de los leds
    // Accederemos a estas posiciones de esta matriz por medio de un puntero
 
     for(int i = 0; i < filas ; i++) // -> necesitamos que el for pase por todas las posiciones de la matriz 8 x 8 = 64 posiciones
         for(int j = 0; j < columnas ; j++)
         {
-            Matriz[i][j] = 1;
+            matriz[i][j] = 1;
             // Imprimimos la matriz a medida que se van cambiando los leds
             for (int k = 0; k < filas; k++)
             {
@@ -205,11 +201,9 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
     // Apagamos los leds
     for(int i = 0; i < filas; i++)
     {   for(int j = 0; j < columnas; j++)
-        { Matriz[i][j] = 0;}
+        { matriz[i][j] = 0;}
         cout<<endl;
     }
 
-    ImprimirMatriz(Matriz, filas, columnas);
-
-    DestruccionMatriz(matriz, filas);
+    ImprimirMatriz(matriz, filas, columnas);
 }
