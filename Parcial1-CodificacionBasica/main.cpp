@@ -84,7 +84,7 @@ void Imagen(int **Matriz){
 
     while(opcion != 0){
     cout<<"Bienvenido sr. usuario, por favor ingrese el numero del patron que quiere ver en la matriz: "<<endl;
-    cout<<"1. Sin esquinas. "<<endl;
+    cout<<"1. Diamante sin puntas. "<<endl;
     cout<<"2. Diagonales. "<<endl;
     cout<<"3. Serpientes. "<<endl;
     cout<<"4. Flecha. "<<endl;
@@ -105,6 +105,39 @@ void Imagen(int **Matriz){
 
         case 1:
         {
+            /*
+             * Analicemos el problema
+             *
+             * Necesitamos crear un diamante sin las puntas; emepezando con los leds 3 y 4 de la primera fila que son los centrales de la matriz
+             * cosa muy parecida que ya habiamos hecho en la practica introductoria del labaoratorio
+             *
+             * Ya tenemos la matriz llena de 0s ahora solo hay que remplazar los 0s por los 1s para dibujar la matriz
+            */
+
+            for(int i = 0; i < filas/2; i++) //--> Solo hacemos la mitad superior ya que esta es simetrica respecto a el eje x
+            {
+                //Contorno del diamante
+                Matriz[i][3 - i] = 1;
+                Matriz[i][4 + i] = 1;
+
+                //Relleno
+                for(int j = 3 - i + 1; j < 4 + i; j++)
+                {
+                    Matriz[i][j]= 1;
+                    Matriz[filas - i - 1][j]= 1;
+                }
+            }
+
+            //Reflecion del patron para la reflexion para el eje x
+            for(int i = filas / 2; i < filas; i++)
+            {
+                for(int j = 0; j < columnas; j++)
+                    Matriz[i][j] = Matriz [filas - i - 1][j];
+            }
+
+            ImprimirMatriz(Matriz, filas, columnas);
+            cout<<endl;
+            Espera();
             break;
         }
 
@@ -183,7 +216,7 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
    // Accederemos a estas posiciones de esta matriz por medio de un puntero
 
     for(int i = 0; i < filas ; i++) // -> necesitamos que el for pase por todas las posiciones de la matriz 8 x 8 = 64 posiciones
-        for(int j = 0; j < columnas ; j++)
+    {    for(int j = 0; j < columnas ; j++)
         {
             matriz[i][j] = 1;
             // Imprimimos la matriz a medida que se van cambiando los leds
@@ -196,13 +229,15 @@ void PruebaDeEncendido(int **matriz, int filas, int columnas){
                 }
                 cout<<endl;
             }
+
+            cout<<endl;
         }
+    }
 
     // Apagamos los leds
     for(int i = 0; i < filas; i++)
     {   for(int j = 0; j < columnas; j++)
         { matriz[i][j] = 0;}
-        cout<<endl;
     }
 
     ImprimirMatriz(matriz, filas, columnas);
