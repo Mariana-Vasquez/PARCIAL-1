@@ -86,10 +86,9 @@ void Publick(int **Matriz, int filas,int columnas, int tiempo)
         }
 
         default:
+            cout<<"La opcion ingresada no es validad, intentelo nuevamente."<<endl;
             break;
         }
-
-
 
     }
 }
@@ -238,6 +237,54 @@ void Patrones(int **Matriz){
 
     case 3:
     {
+        /*
+         * Este patron general cada dos fulas un patron diferente
+         * para las filas 0, 1, 4, 5 genera el siguiente patron
+         * 1 1 0 1 1 0 1 1
+         *
+         * para las filas 2, 3, 6, 7 genera el siguiente patron
+         * 0 1 1 0 1 1 0 1
+         *
+         * por lo que la la matriz deberia quedar asi
+         *
+         *  1 1 0 1 1 0 1 1
+         *  1 1 0 1 1 0 1 1
+         *  0 1 1 0 1 1 0 1
+         *  0 1 1 0 1 1 0 1
+         *  1 1 0 1 1 0 1 1
+         *  1 1 0 1 1 0 1 1
+         *  0 1 1 0 1 1 0 1
+         *  0 1 1 0 1 1 0 1
+         *
+        */
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++)
+            {
+                if(i == 0 or i == 1 or i == 4 or i == 5)
+                {
+                    if(j != 2 and j != 5)
+                    {Matriz[i][j]= 1;}
+
+                    else
+                        Matriz[i][j] = 0;
+                }
+
+                else
+                {
+                    if(j != 0 and j != 3 and j != 6)
+                    {Matriz[i][j]= 1;}
+
+                    else
+                        Matriz[i][j] = 0;
+
+                }
+            }
+        }
+
+        ImprimirMatriz(Matriz, filas, columnas);
+        cout<<endl;
+        Espera(tiempo);
         break;
     }
 
@@ -275,6 +322,7 @@ void Patrones(int **Matriz){
 
     case 5:
     {
+
         break;
     }
 
