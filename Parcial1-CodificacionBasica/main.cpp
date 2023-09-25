@@ -18,7 +18,7 @@ esto nos permite poder inicializarla y destruirla para diferentes zonas del codi
 int** CreacionMatriz(int filas, int columnas); //--> Crea una matriz 8x8 simulando los leds
 void DestruccionMatriz(int** matriz, int filas); //--> Libera el espacio de la memoria dinamica reservada para la matriz
 void ImprimirMatriz(int **matriz, int filas, int columnas); //--> Imprime las matrices que simulan las salidas de los leds
-void Patrones(int **matriz); //--> Le permite al usuario elegir el patron a mostrar
+void Patrones(int **matriz, int tiempo); //--> Le permite al usuario elegir el patron a mostrar
 void Verificacion(int **matriz, int filas, int columnas, int tiempo); //--> Enciende los leds para mostrar que su funcionamiento sea correcto
 void Espera(int tiempo); //--> Crea un delay de tiempo para mostrar un patron en la maeriz o en algun proceso, tambien limpia pantalla
 void Publick(int **Matriz, int filas, int columnas, int tiempo);  //--> Es el menu esencial de nuestro programa
@@ -81,7 +81,7 @@ void Publick(int **Matriz, int filas,int columnas, int tiempo)
         //PATRONES PREDETERMINADOS
         case 3:
         {
-            Patrones(Matriz);
+            Patrones(Matriz, tiempo);
             break;
         }
 
@@ -130,7 +130,7 @@ void ImprimirMatriz(int **matriz, int filas, int columnas){
     }
 }
 
-void Patrones(int **Matriz){
+void Patrones(int **Matriz, int tiempo){
 
     system("cls");
 
@@ -146,6 +146,7 @@ void Patrones(int **Matriz){
 
     system("cls");
 
+    cout<<"RECUERDE para un segundo el tiempo ingresado sera de 1000 "<<endl;
     cout<<"Ingrese la cantidad de tiempo que quiere que el patron se muestre: ";
     cin>>tiempo;
 
@@ -322,7 +323,142 @@ void Patrones(int **Matriz){
 
     case 5:
     {
+        int contadors = 0;
+        int secuencia = 1;
 
+        cout<<"Cuantas veces quiere que se repita la secuencia: ";
+        cin>>secuencia;
+
+        while(contadors != secuencia){
+
+        // Apagamos los leds
+            for(int i = 0; i < filas; i++)
+            {   for(int j = 0; j < columnas; j++)
+                { Matriz[i][j] = 0;}
+            }
+
+        //PRIMER PATRON
+
+                for(int i = 0; i < filas/2; i++) //--> Solo hacemos la mitad superior ya que esta es simetrica respecto a el eje x
+                {
+                    //Contorno del diamante
+                    Matriz[i][3 - i] = 1;
+                    Matriz[i][4 + i] = 1;
+
+                    //Relleno
+                    for(int j = 3 - i + 1; j < 4 + i; j++)
+                    {
+                        Matriz[i][j]= 1;
+                        Matriz[filas - i - 1][j]= 1;
+                    }
+                }
+
+                //Reflecion del patron para la reflexion para el eje x
+                for(int i = filas / 2; i < filas; i++)
+                {
+                    for(int j = 0; j < columnas; j++)
+                        Matriz[i][j] = Matriz [filas - i - 1][j];
+                }
+
+                ImprimirMatriz(Matriz, filas, columnas);
+                cout<<endl;
+                Espera(tiempo);
+
+                // Apagamos los leds
+                for(int i = 0; i < filas; i++)
+                {   for(int j = 0; j < columnas; j++)
+                    { Matriz[i][j] = 0;}
+                }
+
+        //SEGUNDO PATRON
+
+                // Cambiamos los 0s de las diagonales por 1s
+                for(int i = 0 ; i < filas; i++)
+                {
+                    Matriz[i][i] = 1; //-> el primer digito de la matriz que tambien es el primero de la diagonal
+                    Matriz[i][columnas - i - 1] = 1; //-> El ultimo digito de la primera fila de la matriz y el primer digito de la diagonal secundaria
+
+                }
+
+                ImprimirMatriz(Matriz, filas, columnas);
+                cout<<endl;
+                Espera(tiempo);
+
+                // Apagamos los leds
+                for(int i = 0; i < filas; i++)
+                {   for(int j = 0; j < columnas; j++)
+                    { Matriz[i][j] = 0;}
+                }
+
+        //TERCER PATRON
+
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if(i == 0 or i == 1 or i == 4 or i == 5)
+                        {
+                    if(j != 2 and j != 5)
+                    {Matriz[i][j]= 1;}
+
+                    else
+                        Matriz[i][j] = 0;
+                        }
+
+                        else
+                        {
+                    if(j != 0 and j != 3 and j != 6)
+                    {Matriz[i][j]= 1;}
+
+                    else
+                        Matriz[i][j] = 0;
+
+                        }
+                    }
+                }
+
+                ImprimirMatriz(Matriz, filas, columnas);
+                cout<<endl;
+                Espera(tiempo);
+
+                // Apagamos los leds
+                for(int i = 0; i < filas; i++)
+                {   for(int j = 0; j < columnas; j++)
+                    { Matriz[i][j] = 0;}
+                }
+
+        //CUARTO PATRON
+
+                // Rellenar la parte superior del patrón de ">"
+                for (int i = 0; i < 4; i++) {
+                    for (int j = i; j < i + 4; j++) {
+                        Matriz[i][j] = 1;
+                    }
+                }
+
+                int contador = 0; //--> pequeño problema para establecer las condiciones del for :D, asi que lo arreglamos con un contador para que solo imprima cuatro 1s
+
+                // Rellenar la parte inferior del patrón de ">"
+                for (int i = 4; i < filas; i++) {
+                    for (int j = 7 - i; j <= 7; j++) {
+                        if(contador != 4)
+                        {   Matriz[i][j] = 1;
+                    contador++;}
+                    }
+                    contador = 0;
+                }
+
+                ImprimirMatriz(Matriz, filas, columnas);
+                cout<<endl;
+                Espera(tiempo);
+
+                // Apagamos los leds
+                for(int i = 0; i < filas; i++)
+                {   for(int j = 0; j < columnas; j++)
+                    { Matriz[i][j] = 0;}
+                }
+
+                contadors++;
+        }
         break;
     }
 
@@ -398,6 +534,7 @@ void Imagen(int **matriz, int filas, int columnas, int tiempo){
 
     system("cls");
 
+    cout<<"RECUERDE para un segundo el tiempo ingresado sera de 1000 "<<endl;
     cout<<"Ingrese la cantidad de tiempo que quiere que el patron se muestre: ";
     cin>>tiempo;
 
