@@ -147,6 +147,11 @@ void Patrones(int **Matriz){
 
     system("cls");
 
+    cout<<"Ingrese la cantidad de tiempo que quiere que el patron se muestre: ";
+    cin>>tiempo;
+
+    system("cls");
+
     switch (opcion1) {
 
     case 0:
@@ -238,6 +243,33 @@ void Patrones(int **Matriz){
 
     case 4:
     {
+        /*
+         * Esta es una > de grosor 4, pero sin la punta ya que la ultima columna (8) no se toca
+         * por simetria con el eje x podemos hacer primero la parte de arriba y luego reflejarlo para que de la for ma de >
+        */
+
+        // Rellenar la parte superior del patrón de ">"
+        for (int i = 0; i < 4; i++) {
+            for (int j = i; j < i + 4; j++) {
+                Matriz[i][j] = 1;
+            }
+        }
+
+        int contador = 0; //--> pequeño problema para establecer las condiciones del for :D, asi que lo arreglamos con un contador para que solo imprima cuatro 1s
+
+        // Rellenar la parte inferior del patrón de ">"
+        for (int i = 4; i < filas; i++) {
+            for (int j = 7 - i; j <= 7; j++) {
+                if(contador != 4)
+                {   Matriz[i][j] = 1;
+                    contador++;}
+            }
+            contador = 0;
+        }
+
+        ImprimirMatriz(Matriz, filas, columnas);
+        cout<<endl;
+        Espera(tiempo);
         break;
     }
 
