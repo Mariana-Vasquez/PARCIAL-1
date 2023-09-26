@@ -6,4 +6,4 @@ Aquí se encuentran los links del tinkercat y el link respectivo del video en Yo
 
 Tinkercat: https://www.tinkercad.com/things/1lrXCiC5jy3?sharecode=0-UMywQlodyjLTgql18Q_dfwqunpTtCQaWYgcTrwGFQ
 
-Youtube: 
+Youtube: https://youtu.be/VuSxTeAIX9c
