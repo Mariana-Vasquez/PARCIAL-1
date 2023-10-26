@@ -8,4 +8,4 @@ Tinkercat: https://www.tinkercad.com/things/1lrXCiC5jy3?sharecode=0-UMywQlodyjLT
 
 Youtube: https://youtu.be/VuSxTeAIX9c
 
-Tinkercat version 2 : https://www.tinkercad.com/things/1kCDT5a1NgM
+Tinkercat version 2 : https://www.tinkercad.com/things/1kCDT5a1NgM?sharecode=Kiu_mYeBfH20tpK-W80zGuJK_xUJTOhSmTK0W5DZS-U
